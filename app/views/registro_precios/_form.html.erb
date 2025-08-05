@@ -1,0 +1,72 @@
+<%= form_with(model: registro_precio, class: "contents") do |form| %>
+  <% if registro_precio.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
+      <h2><%= pluralize(registro_precio.errors.count, "error") %> prohibited this registro_precio from being saved:</h2>
+
+      <ul class="list-disc ml-6">
+        <% registro_precio.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="my-5">
+    <%= form.label :precio %>
+    <%= form.text_field :precio, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": registro_precio.errors[:precio].none?, "border-red-400 focus:outline-red-600": registro_precio.errors[:precio].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :moneda %>
+    <%= form.text_field :moneda, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": registro_precio.errors[:moneda].none?, "border-red-400 focus:outline-red-600": registro_precio.errors[:moneda].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :fecha_registro %>
+    <%= form.datetime_field :fecha_registro, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": registro_precio.errors[:fecha_registro].none?, "border-red-400 focus:outline-red-600": registro_precio.errors[:fecha_registro].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :foto_ticket_url %>
+    <%= form.text_field :foto_ticket_url, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": registro_precio.errors[:foto_ticket_url].none?, "border-red-400 focus:outline-red-600": registro_precio.errors[:foto_ticket_url].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :latitud %>
+    <%= form.text_field :latitud, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": registro_precio.errors[:latitud].none?, "border-red-400 focus:outline-red-600": registro_precio.errors[:latitud].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :longitud %>
+    <%= form.text_field :longitud, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": registro_precio.errors[:longitud].none?, "border-red-400 focus:outline-red-600": registro_precio.errors[:longitud].any?}] %>
+  </div>
+
+  <div class="my-5 flex items-center gap-2">
+    <%= form.label :es_atipico %>
+    <%= form.checkbox :es_atipico, class: ["block shadow-sm rounded-md border order-first h-5 w-5", {"border-gray-400 focus:outline-blue-600": registro_precio.errors[:es_atipico].none?, "border-red-400 focus:outline-red-600": registro_precio.errors[:es_atipico].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :estado_registro_id %>
+    <%= form.text_field :estado_registro_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": registro_precio.errors[:estado_registro_id].none?, "border-red-400 focus:outline-red-600": registro_precio.errors[:estado_registro_id].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :producto_id %>
+    <%= form.text_field :producto_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": registro_precio.errors[:producto_id].none?, "border-red-400 focus:outline-red-600": registro_precio.errors[:producto_id].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :comercio_id %>
+    <%= form.text_field :comercio_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": registro_precio.errors[:comercio_id].none?, "border-red-400 focus:outline-red-600": registro_precio.errors[:comercio_id].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :usuario_id %>
+    <%= form.text_field :usuario_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": registro_precio.errors[:usuario_id].none?, "border-red-400 focus:outline-red-600": registro_precio.errors[:usuario_id].any?}] %>
+  </div>
+
+  <div class="inline">
+    <%= form.submit class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+  </div>
+<% end %>

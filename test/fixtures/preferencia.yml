@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  unidad_monetaria: MyString
+  recibir_notificaciones: false
+  usuario: one
+
+two:
+  unidad_monetaria: MyString
+  recibir_notificaciones: false
+  usuario: two

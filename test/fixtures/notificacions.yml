@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tipo_notificacion: one
+  mensaje: MyText
+  fecha_envio: 2025-08-04 20:32:58
+  estado_leido: false
+  medio: MyString
+  usuario: one
+  producto: one
+
+two:
+  tipo_notificacion: two
+  mensaje: MyText
+  fecha_envio: 2025-08-04 20:32:58
+  estado_leido: false
+  medio: MyString
+  usuario: two
+  producto: two

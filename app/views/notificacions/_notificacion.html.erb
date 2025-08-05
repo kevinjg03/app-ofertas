@@ -1,0 +1,30 @@
+<div id="<%= dom_id notificacion %>" class="w-full sm:w-auto my-5 space-y-5">
+  <div>
+    <strong class="block font-medium mb-1">Tipo notificacion:</strong>
+    <%= notificacion.tipo_notificacion_id %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Mensaje:</strong>
+    <%= notificacion.mensaje %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Fecha envio:</strong>
+    <%= notificacion.fecha_envio %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Estado leido:</strong>
+    <%= notificacion.estado_leido? ? "Yes" : "No" %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Medio:</strong>
+    <%= notificacion.medio %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Usuario:</strong>
+    <%= notificacion.usuario_id %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Producto:</strong>
+    <%= notificacion.producto_id %>
+  </div>
+</div>

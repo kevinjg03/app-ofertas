@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  precio: 9.99
+  moneda: MyString
+  fecha_registro: 2025-08-04 20:32:43
+  foto_ticket_url: MyString
+  latitud: 1.5
+  longitud: 1.5
+  es_atipico: false
+  estado_registro: one
+  producto: one
+  comercio: one
+  usuario: one
+
+two:
+  precio: 9.99
+  moneda: MyString
+  fecha_registro: 2025-08-04 20:32:43
+  foto_ticket_url: MyString
+  latitud: 1.5
+  longitud: 1.5
+  es_atipico: false
+  estado_registro: two
+  producto: two
+  comercio: two
+  usuario: two

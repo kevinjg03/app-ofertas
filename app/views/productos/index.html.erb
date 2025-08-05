@@ -1,0 +1,162 @@
+<% content_for :title, "Productos" %>
+
+<div class="bg-gray-5 w-full h-full" data-controller="products">
+  <!-- Header -->
+  <div class="bg-white justify-between items-center">
+    <div class="mx-auto px-4 py-2 w-full w-full flex flex-row gap-4 justify-end items-center">
+      
+      <!-- Search Bar -->
+      <div class="flex items-center justify-end4">
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </div>
+          <input type="text" placeholder="Buscar productos..." class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white" data-products-target="search" data-action="input->products#search">
+        </div>
+      </div>
+      <div class="flex items-center justify-end">
+        <%= link_to new_producto_path, class: "flex items-center space-x-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium transition-colors" do %>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+          </svg>
+          <span>Nuevo Producto</span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="max-w-4xl mx-auto px-4 py-6">
+    <% if notice.present? %>
+      <div class="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+        <p class="text-green-800 font-medium"><%= notice %></p>
+      </div>
+    <% end %>
+
+    <!-- Products Feed -->
+    <div class="space-y-6">
+      <% if @productos.any? %>
+        <% @productos.each do |producto| %>
+          <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden product-card" data-products-target="productCard">
+            <!-- Product Header -->
+            <div class="p-4 border-b border-gray-100">
+              <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center">
+                  <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                  </svg>
+                </div>
+                                 <div class="flex-1">
+                   <h3 class="font-semibold text-gray-900" data-product-name="<%= producto.nombre %>"><%= producto.nombre %></h3>
+                   <p class="text-sm text-gray-500"><%= producto.tiempo_transcurrido %></p>
+                 </div>
+                <div class="flex items-center space-x-2">
+                  <%= link_to producto, class: "text-gray-400 hover:text-gray-600 transition-colors" do %>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                    </svg>
+                  <% end %>
+                  <%= link_to edit_producto_path(producto), class: "text-gray-400 hover:text-gray-600 transition-colors" do %>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                    </svg>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product Image Placeholder -->
+            <div class="relative h-48 bg-gradient-to-br from-green-100 to-green-200 flex items-center justify-center">
+              <div class="text-center">
+                <svg class="w-16 h-16 text-green-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                <p class="text-green-600 font-medium">Imagen del producto</p>
+              </div>
+                             <!-- Discount Badge -->
+               <div class="absolute bottom-4 left-4 bg-white bg-opacity-90 rounded-lg px-3 py-1 discount-badge">
+                 <span class="text-green-600 font-bold text-lg"><%= producto.descuento_porcentaje > 0 ? "#{producto.descuento_porcentaje}% OFF" : "Nuevo" %></span>
+                 <p class="text-xs text-gray-600"><%= producto.comercio_principal %></p>
+               </div>
+            </div>
+
+            <!-- Product Details -->
+            <div class="p-4">
+                             <div class="mb-3">
+                 <h4 class="font-semibold text-gray-900 mb-1"><%= producto.nombre %></h4>
+                 <p class="text-gray-600 text-sm" data-product-desc="<%= producto.descripcion %>"><%= producto.descripcion %></p>
+               </div>
+
+                             <!-- Product Info -->
+               <div class="grid grid-cols-2 gap-4 mb-4">
+                 <div>
+                   <p class="text-xs text-gray-500 uppercase tracking-wide">Marca</p>
+                   <p class="font-medium text-gray-900"><%= producto.marca %></p>
+                 </div>
+                 <div>
+                   <p class="text-xs text-gray-500 uppercase tracking-wide">Presentación</p>
+                   <p class="font-medium text-gray-900"><%= producto.presentacion %></p>
+                 </div>
+                 <% if producto.precio_actual %>
+                 <div class="col-span-2">
+                   <p class="text-xs text-gray-500 uppercase tracking-wide">Precio Actual</p>
+                   <p class="font-bold text-lg text-green-600">$<%= number_with_precision(producto.precio_actual, precision: 2) %></p>
+                 </div>
+                 <% end %>
+               </div>
+
+                             <!-- Location -->
+               <div class="flex items-center space-x-2 mb-4">
+                 <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                 </svg>
+                 <span class="text-sm text-gray-600"><%= producto.ubicacion_principal %></span>
+               </div>
+
+              <!-- Engagement -->
+              <div class="flex items-center justify-between pt-3 border-t border-gray-100">
+                                 <div class="flex items-center space-x-6">
+                   <button class="flex items-center space-x-2 text-gray-500 hover:text-red-500 transition-colors engagement-button" data-products-target="likeButton" data-action="click->products#like">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    </svg>
+                    <span class="text-sm">124</span>
+                  </button>
+                                     <button class="flex items-center space-x-2 text-gray-500 hover:text-blue-500 transition-colors engagement-button" data-products-target="commentButton" data-action="click->products#comment">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                    </svg>
+                    <span class="text-sm">28</span>
+                  </button>
+                                     <button class="flex items-center space-x-2 text-gray-500 hover:text-green-500 transition-colors engagement-button" data-products-target="shareButton" data-action="click->products#share">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"></path>
+                    </svg>
+                    <span class="text-sm">15</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <!-- Empty State -->
+        <div class="text-center py-12">
+          <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-medium text-gray-900 mb-2">No hay productos</h3>
+          <p class="text-gray-500 mb-6">Comienza agregando tu primer producto para compartir ofertas</p>
+          <%= link_to "Agregar Producto", new_producto_path, class: "inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg transition-colors" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,2 @@
+module RegistroPreciosHelper
+end

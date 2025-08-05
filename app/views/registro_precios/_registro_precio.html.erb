@@ -1,0 +1,46 @@
+<div id="<%= dom_id registro_precio %>" class="w-full sm:w-auto my-5 space-y-5">
+  <div>
+    <strong class="block font-medium mb-1">Precio:</strong>
+    <%= registro_precio.precio %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Moneda:</strong>
+    <%= registro_precio.moneda %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Fecha registro:</strong>
+    <%= registro_precio.fecha_registro %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Foto ticket url:</strong>
+    <%= registro_precio.foto_ticket_url %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Latitud:</strong>
+    <%= registro_precio.latitud %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Longitud:</strong>
+    <%= registro_precio.longitud %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Es atipico:</strong>
+    <%= registro_precio.es_atipico? ? "Yes" : "No" %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Estado registro:</strong>
+    <%= registro_precio.estado_registro_id %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Producto:</strong>
+    <%= registro_precio.producto_id %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Comercio:</strong>
+    <%= registro_precio.comercio_id %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Usuario:</strong>
+    <%= registro_precio.usuario_id %>
+  </div>
+</div>

@@ -1,0 +1,115 @@
+/* Estilos específicos para las vistas de Devise */
+
+/* Animaciones de entrada */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.login-container {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Efectos hover mejorados */
+.form-input:hover {
+  border-color: #10b981;
+  box-shadow: 0 0 0 1px #10b981;
+}
+
+/* Estados de carga */
+.loading-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Mejoras para dispositivos móviles */
+@media (max-width: 640px) {
+  .login-container {
+    padding: 1rem;
+  }
+  
+  .form-input {
+    font-size: 16px; /* Evita zoom en iOS */
+  }
+}
+
+/* Efectos de focus mejorados */
+.form-input:focus {
+  outline: none;
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+/* Transiciones suaves */
+.form-input,
+.btn-primary {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Estados de error y éxito */
+.form-error {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+}
+
+.form-success {
+  border-color: #10b981 !important;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1) !important;
+}
+
+/* Mejoras para el botón de toggle de contraseña */
+.password-toggle-btn {
+  transition: all 0.2s ease-in-out;
+}
+
+.password-toggle-btn:hover {
+  color: #10b981;
+}
+
+.password-toggle-btn:focus {
+  outline: none;
+  color: #10b981;
+}
+
+/* Efectos de hover para enlaces */
+a:hover {
+  text-decoration: none;
+}
+
+/* Mejoras para el checkbox */
+input[type="checkbox"]:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+/* Responsive design mejorado */
+@media (max-width: 480px) {
+  .login-form {
+    padding: 1.5rem;
+  }
+  
+  .login-title {
+    font-size: 1.5rem;
+  }
+  
+  .login-subtitle {
+    font-size: 0.875rem;
+  }
+} 

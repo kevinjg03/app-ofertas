@@ -1,0 +1,235 @@
+<div class="my-10 w-1/2 flex shadow-lg rounded-lg bg-white py-8 px-4 sm:px-6 lg:px-8">
+  <div class="w-full space-y-8">
+    <div>
+      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+        Editar Mi Cuenta
+      </h2>
+      <p class="mt-2 text-center text-sm text-gray-600">
+        Actualiza tu información personal y configuración de la cuenta.
+      </p>
+    </div>
+    
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), 
+                 html: { method: :put, class: "mt-8 space-y-6", data: { turbo: true } }) do |f| %>
+      
+      <%= render "devise/shared/error_messages", resource: resource %>
+      
+      <div class="rounded-md shadow-sm -space-y-px">
+        <div class="mb-4">
+          <%= f.label :email, class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <div class="relative">
+            <%= f.email_field :email, 
+                autofocus: true, 
+                autocomplete: "email",
+                placeholder: "Tu correo electrónico",
+                class: "appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm",
+                data: { 
+                  controller: "form-validation",
+                  action: "input->form-validation#validateEmail"
+                } %>
+            <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+              <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+              </svg>
+            </div>
+          </div>
+          <div class="hidden mt-1 text-sm text-red-600" data-form-validation-target="emailError">
+            Por favor ingresa un correo electrónico válido.
+          </div>
+        </div>
+
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <div class="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-md">
+            <p class="text-sm text-yellow-800">
+              <strong>Esperando confirmación para:</strong> <%= resource.unconfirmed_email %>
+            </p>
+          </div>
+        <% end %>
+
+        <div class="mb-4">
+          <%= f.label :password, class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <span class="text-xs text-gray-500">(déjalo en blanco si no quieres cambiarlo)</span>
+          <% if @minimum_password_length %>
+            <span class="text-xs text-gray-500">(<%= @minimum_password_length %> caracteres mínimo)</span>
+          <% end %>
+          <div class="relative">
+            <%= f.password_field :password, 
+                autocomplete: "new-password",
+                placeholder: "Nueva contraseña",
+                class: "appearance-none relative block w-full px-3 py-2 pr-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm",
+                data: { 
+                  password_toggle_target: "input",
+                  password_strength_target: "input",
+                  controller: "form-validation password-toggle password-strength",
+                  action: "input->form-validation#validatePassword input->password-strength#checkStrength"
+                } %>
+            <button type="button" 
+                    class="absolute inset-y-0 right-0 pr-3 flex items-center"
+                    data-action="click->password-toggle#toggle"
+                    data-password-toggle-target="button">
+              <svg class="h-5 w-5 text-gray-400" 
+                   data-password-toggle-target="eyeIcon" 
+                   fill="none" 
+                   stroke="currentColor" 
+                   viewBox="0 0 24 24">
+                <path stroke-linecap="round" 
+                      stroke-linejoin="round" 
+                      stroke-width="2" 
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" 
+                      stroke-linejoin="round" 
+                      stroke-width="2" 
+                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+              <svg class="h-5 w-5 text-gray-400 hidden" 
+                   data-password-toggle-target="eyeSlashIcon" 
+                   fill="none" 
+                   stroke="currentColor" 
+                   viewBox="0 0 24 24">
+                <path stroke-linecap="round" 
+                      stroke-linejoin="round" 
+                      stroke-width="2" 
+                      d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21" />
+              </svg>
+            </button>
+          </div>
+          <div class="hidden mt-1 text-sm text-red-600" data-form-validation-target="passwordError">
+            La contraseña debe tener al menos <%= @minimum_password_length || 6 %> caracteres.
+          </div>
+          <div class="mt-2">
+            <div class="w-full bg-gray-200 rounded-full h-1">
+              <div class="h-1 rounded transition-all duration-300" data-password-strength-target="meter"></div>
+            </div>
+            <div class="hidden text-xs mt-1" data-password-strength-target="strength"></div>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <%= f.label :password_confirmation, class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <div class="relative">
+            <%= f.password_field :password_confirmation, 
+                autocomplete: "new-password",
+                placeholder: "Confirmar nueva contraseña",
+                class: "appearance-none relative block w-full px-3 py-2 pr-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm",
+                data: { 
+                  password_toggle_target: "input",
+                  controller: "form-validation password-toggle",
+                  action: "input->form-validation#validatePasswordConfirmation"
+                } %>
+            <button type="button" 
+                    class="absolute inset-y-0 right-0 pr-3 flex items-center"
+                    data-action="click->password-toggle#toggle"
+                    data-password-toggle-target="button">
+              <svg class="h-5 w-5 text-gray-400" 
+                   data-password-toggle-target="eyeIcon" 
+                   fill="none" 
+                   stroke="currentColor" 
+                   viewBox="0 0 24 24">
+                <path stroke-linecap="round" 
+                      stroke-linejoin="round" 
+                      stroke-width="2" 
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" 
+                      stroke-linejoin="round" 
+                      stroke-width="2" 
+                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+              <svg class="h-5 w-5 text-gray-400 hidden" 
+                   data-password-toggle-target="eyeSlashIcon" 
+                   fill="none" 
+                   stroke="currentColor" 
+                   viewBox="0 0 24 24">
+                <path stroke-linecap="round" 
+                      stroke-linejoin="round" 
+                      stroke-width="2" 
+                      d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21" />
+              </svg>
+            </button>
+          </div>
+          <div class="hidden mt-1 text-sm text-red-600" data-form-validation-target="passwordConfirmationError">
+            Las contraseñas no coinciden.
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <%= f.label :current_password, class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <span class="text-xs text-gray-500">(necesitamos tu contraseña actual para confirmar los cambios)</span>
+          <div class="relative">
+            <%= f.password_field :current_password, 
+                autocomplete: "current-password",
+                placeholder: "Contraseña actual",
+                class: "appearance-none relative block w-full px-3 py-2 pr-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm",
+                data: { 
+                  password_toggle_target: "input",
+                  controller: "password-toggle",
+                  action: "input->form-validation#validateCurrentPassword"
+                } %>
+            <button type="button" 
+                    class="absolute inset-y-0 right-0 pr-3 flex items-center"
+                    data-action="click->password-toggle#toggle"
+                    data-password-toggle-target="button">
+              <svg class="h-5 w-5 text-gray-400" 
+                   data-password-toggle-target="eyeIcon" 
+                   fill="none" 
+                   stroke="currentColor" 
+                   viewBox="0 0 24 24">
+                <path stroke-linecap="round" 
+                      stroke-linejoin="round" 
+                      stroke-width="2" 
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" 
+                      stroke-linejoin="round" 
+                      stroke-width="2" 
+                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+              <svg class="h-5 w-5 text-gray-400 hidden" 
+                   data-password-toggle-target="eyeSlashIcon" 
+                   fill="none" 
+                   stroke="currentColor" 
+                   viewBox="0 0 24 24">
+                <path stroke-linecap="round" 
+                      stroke-linejoin="round" 
+                      stroke-width="2" 
+                      d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21" />
+              </svg>
+            </button>
+          </div>
+          <div class="hidden mt-1 text-sm text-red-600" data-form-validation-target="currentPasswordError">
+            La contraseña actual es incorrecta.
+          </div>
+        </div>
+      </div>
+
+      <div class="flex space-x-4">
+        <%= f.submit "Actualizar Cuenta", 
+            class: "flex-1 group relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200",
+            data: { 
+              disable_with: "Actualizando cuenta...",
+              form_validation_target: "submitButton"
+            } %>
+        
+        <%= link_to "Cancelar", :back, 
+            class: "flex-1 group relative flex justify-center py-2 px-4 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200" %>
+      </div>
+    <% end %>
+
+    <!-- Sección de cancelación de cuenta -->
+    <div class="border-t border-gray-200 pt-6">
+      <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+        <h3 class="text-lg font-medium text-red-800 mb-2">Cancelar Mi Cuenta</h3>
+        <p class="text-sm text-red-700 mb-4">
+          ¿No estás satisfecho? Puedes cancelar tu cuenta en cualquier momento. 
+          Esta acción no se puede deshacer.
+        </p>
+        <%= button_to "Cancelar Mi Cuenta", 
+            registration_path(resource_name), 
+            method: :delete,
+            data: { 
+              confirm: "¿Estás seguro? Esta acción no se puede deshacer.", 
+              turbo_confirm: "¿Estás seguro? Esta acción no se puede deshacer." 
+            },
+            class: "w-full bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200" %>
+      </div>
+    </div>
+  </div>
+</div>

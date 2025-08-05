@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cantidad: 1
+  prioridad: 1
+  lista_compra: one
+  producto: one
+
+two:
+  cantidad: 1
+  prioridad: 1
+  lista_compra: two
+  producto: two
