@@ -13,7 +13,7 @@ class Usuario < ApplicationRecord
   has_one :administrador, dependent: :destroy
   
   validates :email, presence: true, uniqueness: true
-  validates :ombre_usuario, presence: true
+  validates :nombre_usuario, presence: true
 
   # Métodos para verificar roles
   def admin?

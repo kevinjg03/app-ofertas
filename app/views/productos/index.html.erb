@@ -16,14 +16,16 @@
           <input type="text" placeholder="Buscar productos..." class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white" data-products-target="search" data-action="input->products#search">
         </div>
       </div>
-      <div class="flex items-center justify-end">
-        <%= link_to new_producto_path, class: "flex items-center space-x-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium transition-colors" do %>
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-          </svg>
-          <span>Nuevo Producto</span>
-        <% end %>
-      </div>
+      <% if usuario_signed_in? %>
+        <div class="flex items-center justify-end">
+          <%= link_to new_producto_path, class: "flex items-center space-x-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium transition-colors" do %>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+            <span>Nuevo Post</span>
+          <% end %>
+        </div>
+      <% end %>
     </div>
   </div>
 
@@ -39,6 +41,7 @@
     <div class="space-y-6">
       <% if @productos.any? %>
         <% @productos.each do |producto| %>
+          <%= link_to producto, class: "no-underline" do %>
           <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden product-card" data-products-target="productCard">
             <!-- Product Header -->
             <div class="p-4 border-b border-gray-100">
@@ -142,6 +145,7 @@
               </div>
             </div>
           </div>
+          <% end %>
         <% end %>
       <% else %>
         <!-- Empty State -->

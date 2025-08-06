@@ -38,17 +38,30 @@ class Producto < ApplicationRecord
   
   # Método para obtener el comercio más frecuente
   def comercio_principal
-    registro_precios.joins(:comercio)
-                   .group('comercios.nombre')
-                   .order(Arel.sql('COUNT(*) DESC'))
-                   .first&.comercio&.nombre || "SuperMercado"
+    comercio_mas_frecuente = registro_precios.joins(:comercio)
+                                             .group('comercios.nombre')
+                                             .order(Arel.sql('COUNT(*) DESC'))
+                                             .limit(1)
+                                             .pluck('comercios.nombre')
+                                             .first
+    
+    comercio_mas_frecuente || "SuperMercado"
   end
   
   # Método para obtener la ubicación más frecuente
   def ubicacion_principal
-    registro_precios.where.not(latitud: nil, longitud: nil)
-                   .group(:latitud, :longitud)
-                   .order(Arel.sql('COUNT(*) DESC'))
-                   .first&.then { |rp| "#{rp.latitud.round(2)}, #{rp.longitud.round(2)}" } || "123 Calle Principal, Ciudad"
+    ubicacion_mas_frecuente = registro_precios.where.not(latitud: nil, longitud: nil)
+                                             .group(:latitud, :longitud)
+                                             .order(Arel.sql('COUNT(*) DESC'))
+                                             .limit(1)
+                                             .pluck(:latitud, :longitud)
+                                             .first
+    
+    if ubicacion_mas_frecuente
+      lat, lng = ubicacion_mas_frecuente
+      "#{lat.round(2)}, #{lng.round(2)}"
+    else
+      "123 Calle Principal, Ciudad"
+    end
   end
 end

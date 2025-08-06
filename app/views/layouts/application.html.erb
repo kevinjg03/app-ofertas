@@ -38,7 +38,7 @@
       </div>
 
       <div class="flex items-center gap-4">
-        <% if usuario_signed_in? %>
+        <% if current_usuario %>
           <%= link_to image_tag("profile.jpg", class: "h-6", alt: "Perfil"), edit_usuario_registration_path, class: "hover:text-green-500" %>
           <%= button_to "Cerrar sesión", destroy_usuario_session_path, method: :delete, class: "bg-transparent border-none text-gray-700 hover:text-green-500 cursor-pointer" %>
         <% else %>

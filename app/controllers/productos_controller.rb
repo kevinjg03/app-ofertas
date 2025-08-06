@@ -8,6 +8,7 @@ class ProductosController < ApplicationController
 
   # GET /productos/1 or /productos/1.json
   def show
+    @producto = Producto.find(params[:id])
   end
 
   # GET /productos/new
